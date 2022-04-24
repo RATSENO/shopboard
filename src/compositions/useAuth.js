@@ -50,6 +50,16 @@ export const useAuth = () => {
         }
     }
 
+    const DESTROY_ACCESS_TOKEN = () =>{
+        state.accessToken=''
+        delete client.defaults.headers.common.Authorization
+        Cookies.remove("accessToken")
+    }
+
+    const DESTROY_MY_INFO = () => {
+        state.myinfo=null
+    }
+
     const signin = (payload) => {
         return client.post(`/api/authenticate?username=${payload.userId}&password=${payload.password}`, {
             username: payload.userId,
@@ -75,12 +85,18 @@ export const useAuth = () => {
         })
     }
 
+    const signout=()=>{
+        DESTROY_MY_INFO()
+        DESTROY_ACCESS_TOKEN()
+    }
+
     return {
         myinfo,
         isAuthorized,
         isAdmin,
         isMember,
         signin,
-        signinByToken
+        signinByToken,
+        signout
     }
 }

@@ -19,7 +19,8 @@ export default {
       isAdmin, 
       isMember, 
       signin,
-      signinByToken
+      signinByToken,
+      signout
     }=useAuth()
 
     provide("myinfo", myinfo)
@@ -27,6 +28,7 @@ export default {
     provide("isAdmin", isAdmin)
     provide("isMember", isMember)
     provide("signin", signin)
+    provide("signout", signout) 
 
     onMounted(()=>{
       const savedToken =Cookies.get('accessToken')
