@@ -1,5 +1,6 @@
 import { computed, reactive } from 'vue'
 import client from '/@modules/client.js'
+import Cookies from 'js-cookie'
 
 export const useAuth = () => {
     const state = reactive({
@@ -37,6 +38,8 @@ export const useAuth = () => {
             state.accessToken = accessToken
             //HTTP 헤더 토큰을 설정
             client.default.headers.common.Authorization = `Bearer ${accessToken}`
+
+            Cookies.set('accessToken', accessToken, {expires: 1})
         }
     }
 
@@ -64,11 +67,20 @@ export const useAuth = () => {
         })
     }
 
+    const signinByToken=(token)=>{
+        SET_ACCESS_TOKEN(token)
+        return client.get('/users/myinfo')
+        .then(res=>{
+            SET_MY_INFO(res.data)
+        })
+    }
+
     return {
         myinfo,
         isAuthorized,
         isAdmin,
         isMember,
-        signin
+        signin,
+        signinByToken
     }
 }

@@ -7,7 +7,7 @@
 <script>
 import client from '/@modules/client.js'
 import {router} from '/@router/router.js'
-import AdminSetupForm from './AdminSetupForm.vue'
+import AdminSetupForm from '/@components/member/AdminSetupForm.vue'
 
 export default {
     name: 'AdminSetupPage',

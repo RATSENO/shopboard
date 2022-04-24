@@ -5,8 +5,10 @@
 </template>
 
 <script>
-import {provide} from 'vue'
+import {provide, onMounted} from 'vue'
 import {useAuth} from '/@compositions/useAuth.js'
+import Cookies from 'js-cookie'
+
 
 export default {
   name: 'App',
@@ -16,7 +18,8 @@ export default {
       isAuthorized, 
       isAdmin, 
       isMember, 
-      signin
+      signin,
+      signinByToken
     }=useAuth()
 
     provide("myinfo", myinfo)
@@ -24,6 +27,16 @@ export default {
     provide("isAdmin", isAdmin)
     provide("isMember", isMember)
     provide("signin", signin)
+
+    onMounted(()=>{
+      const savedToken =Cookies.get('accessToken')
+      if(savedToken){
+        signinByToken(savedToken)
+          .then(res=>{
+            console.log('Logined By Token')
+          })
+      }
+    })
   }
 }
 </script>

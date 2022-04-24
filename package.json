@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@bundled-es-modules/axios": "^0.21.1",
+    "@types/js-cookie": "^3.0.2",
+    "js-cookie": "^3.0.1",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13"
   },
